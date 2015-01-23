@@ -5,69 +5,68 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Phone Call Rate Calculator</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css">
 </head>
-<body>
+<body ng-app="RateCalculator">
 	<div class="jumbotron">
 		<div class="container-fluid">
 			<h1>Phone Cost Calculator</h1>
 		</div>
 	</div>
-	<div class="container-fluid">
-		<div class="row">
-			<form>
-			<div class="col-lg-4 col-md-4">
-				<div class="form-group form-group-lg">
-					<label for="firstRate">Enter First Minute Rate: </label>
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon">$</span>
-						<input type="number" id="firstRate" name="firstRate" min="0" pattern="[0-9]*" class="form-control" placeholder="0.00" />
+	<div class="container-fluid" ng-controller="CalculatorController">
+		<form ng-submit="calculate()">
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+					<div class="form-group form-group-lg">
+						<label for="firstRate">First Minute Rate: </label>
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon">$</span>
+							<input type="number" id="firstRate" name="firstRate" min="0" step="any" class="form-control" placeholder="0.00" ng-model="rates.first" />
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+					<div class="form-group form-group-lg">
+						<label for="additionalRate">Add&apos;l Minute Rate: </label>
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon">$</span>
+							<input type="number" id="additionalRate" name="additionalRate" min="0" step="any" class="form-control" placeholder="0.00" ng-model="rates.additional" />
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					<div class="form-group form-group-lg">
+						<label for="minutes">Minutes: </label>
+						<div class="input-group input-group-lg">
+							<input type="number" id="minutes" name="minutes" min="0" step="any" class="form-control" placeholder="0" ng-model="rates.minutes" />
+							<span class="input-group-addon">minutes</span>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-4 col-md-4">
-				<div class="form-group form-group-lg">
-					<label for="additionalRate">Enter Additional Minute Rate: </label>
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon">$</span>
-						<input type="number" id="additionalRate" name="additionalRate" min="0" pattern="[0-9]*" class="form-control" placeholder="0.00" />
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="form-group form-group-lg">
+						<label for="minutes">Total Cost: </label>
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon">$</span>
+							<input type="text" id="cost" name="cost" class="form-control" ng-readonly="true" ng-model="cost" />
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-4 col-md-4">
-				<div class="form-group form-group-lg">
-					<label for="minutes">Enter Number of Minutes: </label>
-					<div class="input-group input-group-lg">
-						<input type="number" id="minutes" name="minutes" min="0" pattern="[0-9]*" class="form-control" placeholder="0" />
-						<span class="input-group-addon">minutes</span>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="form-group form-group-lg">
+						<label>&nbsp;</label>
+						<button type="submit" id="calculateBtn" class="btn btn-info btn-lg form-control">Calculate</button>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-6 col-md-6">
-				<div class="form-group form-group-lg">
-					<label for="minutes">Total Cost: </label>
-					<div class="input-group input-group-lg">
-						<span class="input-group-addon">$</span>
-						<input type="text" id="cost" name="cost" value="0.00" class="form-control" />
-					</div>
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6">
-				<div class="form-group form-group-lg">
-					<label>&nbsp;</label>
-					<button type="button" id="calculateBtn" class="btn btn-info btn-lg form-control">Calculate</button>
-				</div>
-			</div>
-			</div>
-			</form>
-		</div>
+		</form>
 	</div>
 	
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 	<script src="calculator.js"></script>
 </body>
 </html>

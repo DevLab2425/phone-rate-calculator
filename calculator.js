@@ -1,21 +1,28 @@
-(function($){
-	$('document').ready(function(){
-		function calculateRate(minutes){
-			var FIRST_RATE = parseFloat($('#firstRate').val());
-			var ADDITIONAL_RATE = parseFloat($('#additionalRate').val());
-				
-			minutes = parseInt(minutes);
-		
-			if(minutes <= 0){
-				return 0;
-			}
+(function(angular){
+	
+	angular.module('RateCalculator', []);
+	
+	angular.module('RateCalculator')
+		.controller('CalculatorController', ['$scope', '$filter', function($scope, $filter){
+			function calculateRate(minutes){
+				var FIRST_RATE = parseFloat( $scope.rates.first ),
+					ADDITIONAL_RATE = parseFloat( $scope.rates.additional );
+					
+				minutes = parseInt(minutes);
+			
+				if(minutes <= 0){
+					return 0;
+				}
 
-			return FIRST_RATE + ( ADDITIONAL_RATE * (minutes - 1) );
-		}
+				return FIRST_RATE + ( ADDITIONAL_RATE * (minutes - 1) );
+			};
+			
+			$scope.cost = 0;
+			
+			$scope.calculate = function(){
+				$scope.cost = $filter('number')( calculateRate( $scope.rates.minutes ) || 0, 2 ) ;
+			};
+			
+		}]);
 		
-		$('#calculateBtn').click(function(){
-			var cost = parseFloat(calculateRate($('#minutes').val())) || 0;
-			$('#cost').val( cost.toFixed(2) );
-		});
-	});
-})(jQuery);
+})(angular);
